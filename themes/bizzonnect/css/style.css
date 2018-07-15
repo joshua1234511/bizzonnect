@@ -2680,4 +2680,8 @@ header {
     max-width: 100%;
 }
 
+.footer-fixed > div {
+    margin: 0;
+}
+
 /* @end */
