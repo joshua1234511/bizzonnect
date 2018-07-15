@@ -2628,6 +2628,8 @@ header {
 	max-width: 604px;
 }
 
+}
+
 .wrapper:after, .wrapper:before, .footer-fixed:after, .footer-fixed:before {
 	display: none;
 }
