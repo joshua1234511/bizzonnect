@@ -19,6 +19,8 @@ global-styling:
     includes/respond/html5shiv.min.js: {}
     includes/js/jquery.smooth-scroll.js: {}
     includes/bootstrap/js/bootstrap.js: {}
+    js/css3-mediaqueries.js: {}
+    js/main.js: {}
     js/bizzonnect.js: {}
   dependencies:
     - core/jquery
