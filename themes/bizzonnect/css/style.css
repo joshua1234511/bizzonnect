@@ -2628,8 +2628,6 @@ header {
 	max-width: 604px;
 }
 
-}
-
 .wrapper:after, .wrapper:before, .footer-fixed:after, .footer-fixed:before {
 	display: none;
 }
@@ -2637,6 +2635,7 @@ header {
 .footer-fixed {
     max-width: 100%!important;
     height: auto;
+    position: relative;
 }
 
 .region.region-footer-second {
@@ -2660,6 +2659,19 @@ header {
 .path-my-submissions .views-field-title {
     font-size: inherit;
     font-family: inherit;
+}
+ 
+@media all and (max-width: 959px) and (min-width: 600px) {
+    #logo .site-branding__name a{
+        font-size: 35px;
+    }
+}
+ 
+@media all and (max-width: 599px) and (min-width: 320px) {
+    #logo .site-branding__name a{
+        font-size: 24px;
+    }
+ 
 }
 
 /* @end */
