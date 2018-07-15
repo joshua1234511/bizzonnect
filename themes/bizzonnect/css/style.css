@@ -2676,4 +2676,8 @@ header {
  
 }
 
+#edit-mail-wrapper input#edit-mail-0-value {
+    max-width: 100%;
+}
+
 /* @end */
