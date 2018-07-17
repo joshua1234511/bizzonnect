@@ -1,0 +1,23 @@
+adverts_custom.adclick:
+  path: '/adclick'
+  defaults:
+    _controller: '\Drupal\adverts_custom\Controllers\AdvertsCustomController::adClick'
+    _title: ''
+  requirements:
+    _permission: 'access content'
+ 
+adverts_custom.adclick_view_all:
+  path: '/admin/adclick'
+  defaults:
+    _controller: '\Drupal\adverts_custom\Controllers\AdvertsCustomController::adClickAll'
+    _title: 'Ad Click Stats'
+  requirements:
+    _permission: 'administer site configuration'
+ 
+adverts_custom.adclick_view_single:
+  path: '/admin/adclick/{nid}'
+  defaults:
+    _controller: '\Drupal\adverts_custom\Controllers\AdvertsCustomController::adClickSingle'
+    _title: 'Ad Click Stats'
+  requirements:
+    _permission: 'administer site configuration'

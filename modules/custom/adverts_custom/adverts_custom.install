@@ -1,0 +1,147 @@
+<?php
+
+use Drupal\Core\Database\Database;
+use Drupal\menu_link_content\Entity\MenuLinkContent;
+
+/**
+ * Table to store all the stats of banner count.
+ *
+ */
+function adverts_custom_schema() {
+  $schema['ad_views'] = [
+    'description' => 'Ad view Stats Count',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+         'unsigned' => TRUE,
+          'not null' => TRUE
+      ],
+      'nid' => [
+        'description' => "Node nid.",
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'clicks' => [
+        'description' => "Clicks.",
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'clicks_reset' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => "Rest counter",
+      ],
+    ],
+    'primary key' => ['id'],
+    'auto increment' => 1,
+  ];
+
+  $schema['ad_click_stats'] = [
+    'description' => 'Ad Click Stats',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+         'unsigned' => TRUE,
+          'not null' => TRUE
+      ],
+      'created' => [
+        'description' => 'The time when entry created.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'nid' => [
+        'description' => "Node nid.",
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'uid' => [
+        'type' => 'int',
+        'default' => NULL,
+        'description' => "Uid of User.",
+      ],
+      'ip' => [
+        'description' => "IP Address.",
+        'type' => 'varchar',
+        'length' => 30,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'session_id' => [
+        'description' => "Session ID.",
+        'type' => 'varchar',
+        'length' => 200,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'ad_url' => [
+        'description' => "Ad Url.",
+        'type' => 'varchar',
+        'length' => 200,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'page_url' => [
+        'description' => "Page Url.",
+        'type' => 'varchar',
+        'length' => 200,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'title' => [
+        'description' => "Title.",
+        'type' => 'varchar',
+        'length' => 200,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'type' => [
+        'description' => "Type.",
+        'type' => 'varchar',
+        'length' => 30,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'device' => [
+        'description' => "Device.",
+        'type' => 'varchar',
+        'length' => 30,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+    ],
+    'primary key' => ['id'],
+    'auto increment' => 1,
+  ];
+
+  $schema['ad_clicks'] = [
+    'description' => 'Ad Click Count',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+         'unsigned' => TRUE,
+          'not null' => TRUE
+      ],
+      'nid' => [
+        'description' => "Node nid.",
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'clicks' => [
+        'description' => "Clicks.",
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+    ],
+    'primary key' => ['id'],
+    'auto increment' => 1,
+  ];
+  return $schema;
+}

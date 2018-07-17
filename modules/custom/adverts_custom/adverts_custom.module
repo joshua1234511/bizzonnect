@@ -1,0 +1,206 @@
+<?php
+
+/**
+ * @file
+ * Allows Custom code nawa module.
+ */
+use Drupal\comment\Entity\Comment;
+use Drupal\node\Entity\Node;
+use Drupal\Core\Mail\MailManagerInterface;
+use Drupal\user\Entity\User;
+use Drupal\Core\Url;
+use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Component\Utility\Html;
+
+/**
+ * Implements hook_form_alter() for the node form.
+ */
+function adverts_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id){
+
+  if($form_id == 'node_adverts_form' || $form_id == 'node_adverts_edit_form') {
+      foreach (array_keys($form['actions']) as $action) {
+        if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+          $form['actions'][$action]['#submit'][] = 'nawa_reset_counter';
+        }
+      }
+    $form['adverts_percentages']['#markup'] = _site_adverts_percentages();
+    $form['adverts_percentages']['#weight'] = 126;
+  }
+
+}
+
+function nawa_reset_counter($form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  $node = $form_state->getFormObject()->getEntity();
+  if ($node->getType() == 'adverts') {
+    $query = \Drupal::entityQuery('node');
+    $query->condition('type','adverts');
+    $query->condition('status',1);
+    $nids = $query->execute();
+    foreach ($nids as $key => $nid) {
+      $exists = db_query('SELECT 1 FROM {ad_views} WHERE nid = :nid', array(':nid' => $nid))->fetchField();
+      if($exists){
+        $query = db_update('ad_views');
+        $query->fields(array(
+        'clicks_reset' => 0,
+        ))
+        ->condition('nid', $nid, '=')
+        ->execute();
+      }
+    }
+  }
+}
+
+function getUserIP() {
+    $client  = @$_SERVER['HTTP_CLIENT_IP'];
+    $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
+    $remote  = $_SERVER['REMOTE_ADDR'];
+ 
+    if(filter_var($client, FILTER_VALIDATE_IP))
+    {
+        $ip = $client;
+    }
+    elseif(filter_var($forward, FILTER_VALIDATE_IP))
+    {
+        $ip = $forward;
+    }
+    else
+    {
+        $ip = $remote;
+    }
+ 
+    return $ip;
+}
+
+function _site_adverts_percentages(){
+  $query = \Drupal::entityQuery('node');
+  $query->condition('type','adverts');
+  $query->condition('status',1);
+  $nids = $query->execute();
+  $nodes =  \Drupal\node\Entity\Node::loadMultiple($nids);
+  $html ='<div class="advert-percentage><h3>Adverts Percentage</h3><ul>';
+  if(!empty($nodes))
+  foreach ($nodes as $key => $value) {
+    $html .='<li>'.$value->get('title')->getValue()[0]['value'].' - '.$value->get('field_display_frequency')->getValue()[0]['value'].'%</li>';
+  }
+  $html .='</ul></div>';
+  return $html;
+}
+
+function get_click_count($nid){
+  return db_query("SELECT clicks from {ad_views} WHERE nid = :nid LIMIT 1", array(":nid" => $nid))->fetchField();
+}
+
+function get_click_count_reset($nid){
+  return db_query("SELECT clicks_reset from {ad_views} WHERE nid = :nid LIMIT 1", array(":nid" => $nid))->fetchField();
+}
+
+function _display_advert_node(){
+  $data=array();
+  $list = array();
+  $query = \Drupal::entityQuery('node');
+  $query->condition('type','adverts');
+  $query->condition('status',1);
+  $nids = $query->execute();
+  $nodes =  \Drupal\node\Entity\Node::loadMultiple($nids);
+  $total = 0;
+  if(!empty($nodes))
+  foreach ($nodes as $key => $value) {
+    $list[$value->get('nid')->getValue()[0]['value']]['frequency'] = (int)$value->get('field_display_frequency')->getValue()[0]['value'];
+    $list[$value->get('nid')->getValue()[0]['value']]['view'] = (int)get_click_count_reset($value->get('nid')->getValue()[0]['value']);
+    $total = $total + get_click_count_reset($value->get('nid')->getValue()[0]['value']);
+  }
+  if(!empty($list))
+  foreach ($list as $key => $value) {
+    $list[$key]['display'] = $value['view']/$total*100;
+    $list[$key]['left'] = $list[$key]['frequency'] - $list[$key]['display'];
+  }
+  //logic for display start
+  if(!empty($list))
+  $list = array_sort($list, 'left', SORT_DESC);
+  //logic for display end
+
+  if(!empty($list)){
+    $nid = key($list);
+    $nodeData = \Drupal\node\Entity\Node::load($nid);
+    $data['field_url']=$nodeData->get('field_url')->getValue()[0]['uri'];
+    $data['nid']=$nodeData->get('nid')->getValue()[0]['value'];
+    $data['title']=$nodeData->get('title')->getValue()[0]['value'];
+    $data['field_desktop_image_1']=$nodeData->get('field_ads_banner_150_x_330')->getValue()[0];
+    $data['field_desktop_image_2']=$nodeData->get('field_ads_banner_970_x_90')->getValue()[0];
+    $data['field_mobile_images']=$nodeData->get('field_ads_banner_310_x_310')->getValue()[0];
+    $fileD1 = \Drupal\file\Entity\File::load($nodeData->get('field_ads_banner_150_x_330')->getValue()[0]['target_id']);
+    $data['desktop_image_1'] = file_create_url($fileD1->getFileUri());
+    $fileD2 = \Drupal\file\Entity\File::load($nodeData->get('field_ads_banner_970_x_90')->getValue()[0]['target_id']);
+    $data['desktop_image_2'] = file_create_url($fileD2->getFileUri());
+    $fileM = \Drupal\file\Entity\File::load($nodeData->get('field_ads_banner_310_x_310')->getValue()[0]['target_id']);
+    $data['mobile_image'] = file_create_url($fileM->getFileUri());
+    $data['field_desktop_image_1']['alt'] = $data['field_desktop_image_2']['alt'] = $data['field_mobile_images']['alt'] = $data['title'];
+    $data['field_desktop_image_1']['title'] = $data['field_desktop_image_2']['title'] = $data['field_mobile_images']['title'] = $data['title'];
+    
+    displayAdvert($nid);
+  }
+  return $data;
+}
+
+function displayAdvert($nid)
+    {
+      $query = db_select('ad_views', 'pnc');
+      $query->fields('pnc');
+      $query->condition('nid', $nid ,'=');
+      $result = $query->execute();
+      $result->allowRowCount = TRUE;
+
+      if ($result->rowCount() > 0){
+          $query = db_update('ad_views');
+          $query->expression('clicks', 'clicks + 1')
+                ->expression('clicks_reset', 'clicks_reset + 1')
+                ->condition('nid', $nid, '=')
+                ->execute();
+      }
+      else{
+          $Data = db_insert('ad_views')
+          ->fields(
+                    array(
+                      'nid' => $nid,
+                      'clicks' => 1,
+                      'clicks_reset' => 1,
+                      )
+                  )
+          ->execute();
+      }
+}
+
+function array_sort($array, $on, $order=SORT_ASC){
+
+    $new_array = array();
+    $sortable_array = array();
+
+    if (count($array) > 0) {
+        foreach ($array as $k => $v) {
+            if (is_array($v)) {
+                foreach ($v as $k2 => $v2) {
+                    if ($k2 == $on) {
+                        $sortable_array[$k] = $v2;
+                    }
+                }
+            } else {
+                $sortable_array[$k] = $v;
+            }
+        }
+
+        switch ($order) {
+            case SORT_ASC:
+                asort($sortable_array);
+                break;
+            case SORT_DESC:
+                arsort($sortable_array);
+                break;
+        }
+
+        foreach ($sortable_array as $k => $v) {
+            $new_array[$k] = $array[$k];
+        }
+    }
+
+    return $new_array;
+}

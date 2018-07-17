@@ -2691,4 +2691,29 @@ header {
     margin: 0;
 }
 
+.mobileAd {
+    display: none;
+}
+
+.desktopAd img, .mobileAd img{
+  border: none;
+  padding: 0;
+  width: 100%;
+  text-align: center;
+}
+
+@media (max-width: 630px) {
+  .mobileAd {
+    display: block;
+  }
+  .desktopAd {
+    display: none;
+  }
+}
+
+.block-adverts-custom {
+    padding: 0!important;
+    width: 100%;
+}
+
 /* @end */
