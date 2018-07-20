@@ -2709,6 +2709,9 @@ header {
   .desktopAd {
     display: none;
   }
+  input[id^="#edit-"] {
+      max-width: 100%;
+  }
 }
 
 .block-adverts-custom {

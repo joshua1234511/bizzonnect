@@ -2,10 +2,10 @@ jQuery(document).ready(function($) {
     "use strict";
 
     /* Search */
-    $(".search-trigger").on('click', function() {
-        $(".search").slideToggle("slow", function() {});
-	   $("i").toggleClass( "fa-times" , "fa-search");
-    });
+    // $(".search-trigger").on('click', function() {
+    //     $(".search").slideToggle("slow", function() {});
+	   // $("i").toggleClass( "fa-times" , "fa-search");
+    // });
 
     /* Simple tabs */
     $('#tabs li a').on('click', function(e) {
