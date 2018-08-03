@@ -72,7 +72,7 @@ class CustomFeedsImportQueueWorker extends QueueWorkerBase {
         }
       }
 
-      $node->status = 1;
+      $node->set('status',1);
 
       $node->enforceIsNew();
       $node->save();
