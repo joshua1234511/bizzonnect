@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Allows Custom code nawa module.
+ * Allows Custom code adverts_custom module.
  */
 use Drupal\comment\Entity\Comment;
 use Drupal\node\Entity\Node;
@@ -20,7 +20,7 @@ function adverts_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface 
   if($form_id == 'node_adverts_form' || $form_id == 'node_adverts_edit_form') {
       foreach (array_keys($form['actions']) as $action) {
         if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
-          $form['actions'][$action]['#submit'][] = 'nawa_reset_counter';
+          $form['actions'][$action]['#submit'][] = 'adverts_custom_reset_counter';
         }
       }
     $form['adverts_percentages']['#markup'] = _site_adverts_percentages();
@@ -29,7 +29,7 @@ function adverts_custom_form_alter(&$form, \Drupal\Core\Form\FormStateInterface 
 
 }
 
-function nawa_reset_counter($form, \Drupal\Core\Form\FormStateInterface $form_state) {
+function adverts_custom_reset_counter($form, \Drupal\Core\Form\FormStateInterface $form_state) {
   $node = $form_state->getFormObject()->getEntity();
   if ($node->getType() == 'adverts') {
     $query = \Drupal::entityQuery('node');

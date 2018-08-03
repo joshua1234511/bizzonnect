@@ -1,0 +1,6 @@
+name: Custom Feeds Import
+type: module
+description: Custom Feeds Import
+package: Bizzonnect
+core: 8.x
+configure: custom_feeds_import.admin_settings
