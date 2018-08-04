@@ -39,6 +39,13 @@ class CustomFeedsImportQueueWorker extends QueueWorkerBase {
       ];
       $node->set('field_category', $field_category);
 
+      if(!empty($item->tags)) {
+        $field_tags = [];
+        foreach ($item->tags as $value) {
+          $field_tags[] = ['target_id' => $value];
+        }
+        $node->set('field_tags', $field_tags);
+      }
       if(!empty($item->body)) {
         $bodyData = $item->body;
         if(!empty($item->author)){
@@ -72,6 +79,7 @@ class CustomFeedsImportQueueWorker extends QueueWorkerBase {
           $node->set('field_image', $field_image);
         }
       }
+
       $node->enforceIsNew();
       $node->save();
     }

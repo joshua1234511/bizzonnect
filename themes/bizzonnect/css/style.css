@@ -2719,4 +2719,8 @@ header {
     width: 100%;
 }
 
+#block-useraccountmenu a {
+    color: #fff;
+}
+
 /* @end */

@@ -1,0 +1,13 @@
+name: Invite Link
+type: module
+description: Allow users to invite others to the site by generating an invitation link.
+# core: 8.x
+package: Invite
+
+dependencies:
+  - invite
+# Information added by Drupal.org packaging script on 2017-04-28
+version: '8.x-1.0-beta1'
+core: '8.x'
+project: 'invite'
+datestamp: 1493387050

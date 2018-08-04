@@ -43,6 +43,40 @@ function get_data($url){
 	return FALSE;
 }
 
+function get_tid_term($name, $vid = 'tags'){
+	$query = \Drupal::entityQuery('taxonomy_term');
+    $query->condition('vid', $vid);
+    $query->condition('name', ucfirst($name));
+    $tids = $query->execute();
+    if(!empty($tids)){
+    	return reset($tids);
+    } else {
+    	$term = \Drupal\taxonomy\Entity\Term::create([
+          'vid' => $vid,
+          'name' => ucfirst($name),
+    	]);
+		$term->save();
+		return $term->id();
+    }
+    return false;
+}
+
+function get_title_tags($title){
+	$fields['tags'] = array();
+	$data = explode('#', $title);
+	if(!empty($data) && count($data) > 1){
+		$title = $data[0];
+		foreach ($data as $key => $value) {
+			if($key !=0 ){
+				$fields['tags'][] = $value;
+			}
+		}
+	}
+	$title = preg_replace('/[^A-Za-z0-9\-]/', ' ', $title);
+	$fields['title'] = preg_replace("/\b(\w+)\s+\\1\b/i", "$1", $title);
+	return $fields;
+}
+
 /**
  * Implements hook_cron().
  */
@@ -51,9 +85,8 @@ function custom_feeds_import_cron() {
   $config = \Drupal::config('custom_feeds_import.settings');
   $uid = $config->get('custom_feeds_import_uid');
   $keyApi = $config->get('custom_feeds_import_keyApi');
-  if ((REQUEST_TIME - $last_run) > 3600) {
-
-		$queue = \Drupal::queue('custom_feeds_import');
+  if ((REQUEST_TIME - $last_run) > 10800) {
+  		$queue = \Drupal::queue('custom_feeds_import');
 		$queue->createQueue();
   	    $categories = get_categories_names();
   	    foreach ($categories as $key => $term) {
@@ -62,9 +95,9 @@ function custom_feeds_import_cron() {
 			    	if(!empty($data->articles)){
 			    		foreach ($data->articles as $article) {
 			    			$title = $description = $url = $author = $link = $source = "";
-			    			if(!empty($article->title)){
-			    				$title = ucfirst($article->title);
-			    			}
+			    			$data = get_title_tags($article->title);
+			    			$title = ucwords(strtolower($data['title']));
+
 			    			if(!empty($article->urlToImage)){
 			    				$url = $article->urlToImage;
 			    			}
@@ -80,7 +113,16 @@ function custom_feeds_import_cron() {
 			    			if(!empty($article->source) && !empty($article->source->name)){
 			    				$source = $article->source->name;
 			    			}
-			    			$item = (object) ['uid' => $uid, 'title' => $title, 'body' => $description, 'tid' => $term['tid'], 'url' => $url, 'author' => $author, 'link' => $link, 'source' => $source];
+			    			$tidList = array();
+			    			$tidList[] = get_tid_term($term['name']);
+			    			$list = $data['tags'];
+			    			if(!empty($list))
+							foreach ($list as $key => $value) {
+							  	if($tid = get_tid_term($value)){
+							  		$tidList[] = $tid;
+							  	}
+							}
+			    			$item = (object) ['uid' => $uid, 'title' => $title, 'body' => $description, 'tid' => $term['tid'], 'url' => $url, 'author' => $author, 'link' => $link, 'source' => $source, 'tags' => $tidList];
 
 							if(!empty($article->urlToImage)){
 								$queue->createItem($item);
