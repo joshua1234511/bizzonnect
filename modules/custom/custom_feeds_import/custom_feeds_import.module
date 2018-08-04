@@ -82,7 +82,9 @@ function custom_feeds_import_cron() {
 			    			}
 			    			$item = (object) ['uid' => $uid, 'title' => $title, 'body' => $description, 'tid' => $term['tid'], 'image' => $url, 'author' => $author, 'link' => $link, 'source' => $source];
 
-							$queue->createItem($item);
+							if(!empty($article->urlToImage)){
+								$queue->createItem($item);
+							}
 			    		}
 			    	}
 			    }
