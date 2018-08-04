@@ -2683,8 +2683,13 @@ header {
 
 }
 
-#edit-mail-wrapper input#edit-mail-0-value, input#edit-subject-0-value {
+#edit-mail-wrapper input#edit-mail-0-value, input#edit-subject-0-value,
+ #invite-by-email-block-form input#edit-email {
     max-width: 100%;
+}
+
+#invite-by-email-block-form input#edit-send-invitation{
+    margin-bottom: 20px;
 }
 
 .footer-fixed > div {
