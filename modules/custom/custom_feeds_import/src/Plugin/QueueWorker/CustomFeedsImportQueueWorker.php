@@ -60,9 +60,10 @@ class CustomFeedsImportQueueWorker extends QueueWorkerBase {
 
       if(!empty($item->url)) {
         $data = file_get_contents($item->url);
+        $file_directory_name = 'apiImages';
         $path_parts = pathinfo($item->url);
         if(!empty($data)) {
-          $file = file_save_data($data, 'public://'.$path_parts['basename'], FILE_EXISTS_RENAME);
+          $file = file_save_data($data, 'public://'.$file_directory_name."/".$path_parts['basename'], FILE_EXISTS_RENAME);
           $field_image = [
             'target_id' => $file->id(),
             'alt' => $item->title,
