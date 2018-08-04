@@ -51,7 +51,7 @@ function custom_feeds_import_cron() {
   $config = \Drupal::config('custom_feeds_import.settings');
   $uid = $config->get('custom_feeds_import_uid');
   $keyApi = $config->get('custom_feeds_import_keyApi');
-  if ((REQUEST_TIME - $last_run) > 86400) {
+  if ((REQUEST_TIME - $last_run) > 3600) {
 
 		$queue = \Drupal::queue('custom_feeds_import');
 		$queue->createQueue();
@@ -63,7 +63,7 @@ function custom_feeds_import_cron() {
 			    		foreach ($data->articles as $article) {
 			    			$title = $description = $url = $author = $link = $source = "";
 			    			if(!empty($article->title)){
-			    				$title = $article->title;
+			    				$title = ucfirst($article->title);
 			    			}
 			    			if(!empty($article->urlToImage)){
 			    				$url = $article->urlToImage;
