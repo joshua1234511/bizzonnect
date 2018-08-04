@@ -71,9 +71,6 @@ class CustomFeedsImportQueueWorker extends QueueWorkerBase {
           $node->set('field_image', $field_image);
         }
       }
-
-      $node->set('status',1);
-
       $node->enforceIsNew();
       $node->save();
     }
