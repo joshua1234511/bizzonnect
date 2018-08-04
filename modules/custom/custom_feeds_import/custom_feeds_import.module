@@ -80,7 +80,7 @@ function custom_feeds_import_cron() {
 			    			if(!empty($article->source) && !empty($article->source->name)){
 			    				$source = $article->source->name;
 			    			}
-			    			$item = (object) ['uid' => $uid, 'title' => $title, 'body' => $description, 'tid' => $term['tid'], 'image' => $url, 'author' => $author, 'link' => $link, 'source' => $source];
+			    			$item = (object) ['uid' => $uid, 'title' => $title, 'body' => $description, 'tid' => $term['tid'], 'url' => $url, 'author' => $author, 'link' => $link, 'source' => $source];
 
 							if(!empty($article->urlToImage)){
 								$queue->createItem($item);
