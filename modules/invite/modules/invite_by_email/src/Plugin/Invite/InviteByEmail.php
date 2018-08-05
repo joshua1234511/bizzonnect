@@ -29,7 +29,7 @@ class InviteByEmail implements InvitePluginInterface {
     $mail_key = $invite->get('type')->value;
     // Prepare message.
     $message = $mail->mail('invite_by_email', $mail_key, $invite->get('field_invite_email_address')->value, $invite->activeLangcode, array(), $invite->getOwner()
-      ->getEmail());
+      ->getEmail(), FALSE);
     // If HTML email.
     if (unserialize(\Drupal::config('invite.invite_type.' . $invite->get('type')->value)
       ->get('data'))['html_email']
