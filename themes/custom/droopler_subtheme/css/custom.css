@@ -66,3 +66,11 @@
   position: relative;
   height: 0.125rem;
 }
+
+.view-my-submissions caption {
+  caption-side: top;
+  color: #fff;
+  font-size: 2rem;
+  background: #196dba;
+  padding-left: 1em;
+}
