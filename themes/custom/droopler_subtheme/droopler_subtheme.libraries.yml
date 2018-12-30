@@ -5,6 +5,7 @@ global-styling:
   css:
     theme:
       css/print.css: { media: print }
+      css/custom.css: { weight: 10 }
       css/style.css: {}
 
 global-js:

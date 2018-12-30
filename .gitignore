@@ -9,3 +9,5 @@
 /.htaccess
 /sites/default/files/tmp
 /sites/default/files/config_EBbaOdce-RbgbhLnHqU7b5dkFXQF45MVUpWO5uCRbhaCzgHaMLqSMqVlPZI6OS5LWha9x43p2A
+/themes/custom/droopler_subtheme/node_modules
+/themes/custom/droopler_subtheme/package-lock.json

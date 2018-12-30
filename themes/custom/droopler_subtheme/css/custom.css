@@ -1,0 +1,29 @@
+.site-footer .block {
+  margin: 20px 0;
+  border: 1px solid #444;
+  border-color: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+}
+
+#block-views-block-blog-listing-premium-blog-posts .view-blog-listing{
+  margin-top: 0px;
+}
+
+.node .field--name-field-category,
+.node--type-content-page .node__title {
+  background: #196dba;
+  margin: 1.2em 0 1.2em;
+  padding: 1.2em 0 1.2em;
+  color: #fff;
+  text-align: center;
+}
+
+.node--type-content-page .node__title {
+  margin: 0;
+}
+
+.node .field--name-field-category a,
+.node--type-content-page .node__title a {
+  color: #fff;
+  font-size: 2rem;
+}
