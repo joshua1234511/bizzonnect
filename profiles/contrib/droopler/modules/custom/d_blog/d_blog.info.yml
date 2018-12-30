@@ -1,0 +1,34 @@
+name: d_blog
+description: 'Adds a blog to Droopler.'
+type: module
+# core: 8.x
+dependencies:
+  - block
+  - content_translation
+  - ctools
+  - d_p
+  - entity_reference_revisions
+  - field
+  - file
+  - image
+  - language
+  - menu_ui
+  - metatag
+  - node
+  - paragraphs
+  - path
+  - responsive_image
+  - svg_image
+  - taxonomy
+  - text
+  - tvi
+  - user
+  - views
+# version: 8.x-1.4
+package: Droopler
+
+# Information added by Drupal.org packaging script on 2018-12-20
+version: '8.x-1.4'
+core: '8.x'
+project: 'droopler'
+datestamp: 1545295418

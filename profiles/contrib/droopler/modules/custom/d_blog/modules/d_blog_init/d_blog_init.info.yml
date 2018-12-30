@@ -1,0 +1,14 @@
+name: d_blog_init
+description: 'Create Lorem Ipsum posts for blog.'
+type: module
+# core: 8.x
+# version: 8.x-1.4
+dependencies:
+  - paragraphs
+package: Droopler
+
+# Information added by Drupal.org packaging script on 2018-12-20
+version: '8.x-1.4'
+core: '8.x'
+project: 'droopler'
+datestamp: 1545295418

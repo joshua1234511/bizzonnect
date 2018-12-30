@@ -1,0 +1,20 @@
+name: d_p_counters
+# core: 8.x
+description: 'Provides a paragraph with important numbers.'
+type: module
+dependencies:
+  - content_translation
+  - d_p
+  - entity_reference_revisions
+  - field
+  - image
+  - paragraphs
+  - svg_image
+package: Paragraphs
+# version: 8.x-1.4
+
+# Information added by Drupal.org packaging script on 2018-12-20
+version: '8.x-1.4'
+core: '8.x'
+project: 'droopler'
+datestamp: 1545295418

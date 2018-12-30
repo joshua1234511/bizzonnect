@@ -1,0 +1,15 @@
+name: 'Droopler Update'
+type: module
+# core: 8.x
+description: 'Provide support for updating Droopler versions.'
+dependencies:
+  - config_update:config_update
+  - checklistapi
+package: Droopler
+# version: 8.x-1.4
+
+# Information added by Drupal.org packaging script on 2018-12-20
+version: '8.x-1.4'
+core: '8.x'
+project: 'droopler'
+datestamp: 1545295418
