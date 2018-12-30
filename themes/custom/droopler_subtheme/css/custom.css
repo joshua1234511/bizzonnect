@@ -27,3 +27,19 @@
   color: #fff;
   font-size: 2rem;
 }
+
+.view-blog-listing .views-exposed-form {
+  margin-bottom: 2em;
+  border-bottom: 1px solid #196dba;
+  padding-bottom: 2em;
+}
+.view-blog-listing .views-exposed-form > div > fieldset,
+.view-blog-listing .views-exposed-form > div > div {
+  float: left;
+  margin: 0 1em 0 1em;
+
+}
+
+.view-blog-listing .views-exposed-form > div > fieldset .form-text {
+  margin-top: 0;
+}
