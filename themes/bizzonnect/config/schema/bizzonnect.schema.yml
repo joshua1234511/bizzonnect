@@ -1,5 +1,0 @@
-# Schema for the configuration files of the Bizzonnect theme.
-
-bizzonnect.settings:
-  type: theme_settings
-  label: 'Bizzonnect settings'

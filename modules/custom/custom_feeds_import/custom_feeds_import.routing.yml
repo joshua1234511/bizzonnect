@@ -1,7 +1,0 @@
-custom_feeds_import.admin_settings:
-  path: '/admin/config/custom_feeds_import'
-  defaults:
-    _form: '\Drupal\custom_feeds_import\Form\ModuleConfigurationForm'
-    _title: 'Custom feeds import configuration screen'
-  requirements:
-    _permission: 'administer site configuration'
