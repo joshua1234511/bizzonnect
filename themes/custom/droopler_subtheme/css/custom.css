@@ -74,3 +74,31 @@
   background: #196dba;
   padding-left: 1em;
 }
+
+div#block-addtoanybuttons {
+  position: absolute;
+  z-index: 9;
+}
+
+div.business-header,
+div.business-footer {
+  background-color: #4c4c4c;
+  display: flex;
+}
+
+div.business-header div.left .node__title{
+  padding: 0;
+  background-color: transparent;
+}
+
+div.business-header div.left .node__title a{
+  color: #196dba;
+}
+
+div.business-header div.left,
+div.business-header div.right,
+div.business-footer div.left,
+div.business-footer div.right {
+  padding: 0;
+  display: inline-block;
+}
