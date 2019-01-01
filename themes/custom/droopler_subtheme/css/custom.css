@@ -103,7 +103,8 @@ div.business-footer div.right {
   padding: 40px;
   display: inline-block;
 }
-.view-taxonomy-listing .view-content {
+.view-taxonomy-listing .view-content,
+.submissions-count {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -139,7 +140,8 @@ div.business-footer div.right {
   border-top: .5em solid #fff;
 }
 
-.site-footer a {
+.site-footer a,
+.submissions-count > div a {
   color: #fff;
 }
 
@@ -159,4 +161,17 @@ div.business-footer div.right .verified {
 
 div.business-header.light {
   background-color: #fff;
+}
+
+.submissions-count > div {
+  background-color: #196dba;
+  padding: 40px;
+  text-align: center;
+  border: 5px solid #fff;
+}
+
+.submissions-count > div span {
+  font-size: 5rem;
+  display: block;
+  color: #fff;
 }

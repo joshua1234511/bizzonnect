@@ -1,0 +1,5 @@
+name: Bizzonnect
+type: module
+description: Bizzonnect custom code
+package: Bizzonnect
+core: 8.x
