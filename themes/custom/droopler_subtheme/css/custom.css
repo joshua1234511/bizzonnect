@@ -136,11 +136,11 @@ div.business-footer div.right {
 
 .site-footer {
   background-color: #196dba;
+  border-top: .5em solid #fff;
 }
 
 .site-footer a {
   color: #fff;
-  border-top: 5px solid;
 }
 
 .business-copy {
