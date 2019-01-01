@@ -82,16 +82,17 @@ div#block-addtoanybuttons {
 
 div.business-header,
 div.business-footer {
-  background-color: #4c4c4c;
+  background-color: #000000;
   display: flex;
 }
 
-div.business-header div.left .node__title{
+div.business-header div.right .node__title{
   padding: 0;
   background-color: transparent;
+  text-align: left;
 }
 
-div.business-header div.left .node__title a{
+div.business-header div.right .node__title a{
   color: #196dba;
 }
 
@@ -99,6 +100,63 @@ div.business-header div.left,
 div.business-header div.right,
 div.business-footer div.left,
 div.business-footer div.right {
-  padding: 0;
+  padding: 40px;
   display: inline-block;
+}
+.view-taxonomy-listing .view-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.view-taxonomy-listing .view-content > div {
+  display: inline-block;
+}
+
+.view-taxonomy-listing.view-display-id-block_1 .view-content {
+  margin: 0 5em 0 5em;
+}
+
+@media (max-width: 767px) {
+  .view-taxonomy-listing .view-content > div {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  #views-exposed-form-blog-listing-page-1 .form--inline.clearfix,
+  #views-exposed-form-business-listing-page-1 .form--inline.clearfix {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.site-footer {
+  background-color: #196dba;
+}
+
+.site-footer a {
+  color: #fff;
+  border-top: 5px solid;
+}
+
+.business-copy {
+  text-align: center;
+  padding: 30px;
+}
+
+div.business-header div.right .email,
+div.business-header div.right .tel,
+div.business-header div.right .verified,
+div.business-footer div.right .email,
+div.business-footer div.right .tel,
+div.business-footer div.right .verified {
+  display: block;
+}
+
+div.business-header.light {
+  background-color: #fff;
 }

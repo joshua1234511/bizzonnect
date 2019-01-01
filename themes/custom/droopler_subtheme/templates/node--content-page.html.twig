@@ -73,30 +73,33 @@
 %}
 <article{{ attributes.addClass(classes) }}>
 {% if node.field_non_business.value == '0' %}
-  <style type="text/css">
-    #header {
-      display: none;
-      z-index: -9;
-    }
-  </style>
   <header>
     {{ title_prefix }}
     {% if page %}
-      <div class="business-header">
+    <style type="text/css">
+      #header {
+        display: none;
+        z-index: -9;
+      }
+    </style>
+    {% if node.field_design.value == 'dark' %}
+      <div class="business-header dark">
+    {% else %}
+      <div class="business-header light">
+    {% endif %}
         <div class="left col-md-6">
-          <h2{{ title_attributes.addClass('node__title') }}>
             <img src="{{ file_url(node.field_teaser_image.entity.uri.value) }}" alt="{{  node_title }}" class="img-responsive" >
-              <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-          </h2>
         </div>
         <div class="right col-md-6">
+          <h2{{ title_attributes.addClass('node__title') }}>
+              <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+          </h2>
           <span class="email"><a href = "mailto: {{ node.field_email.value }}">Send Email</a></span>
           <span class="tel"><a href="tel:{{ node.field_telephone.value }}">Call {{ node.field_telephone.value }}</a></span>
           {% if node.field_verified_account.value == '1' %}
-          <span class="verified">Verified</span>
+          <span class="verified"><i class="fa fa-check-circle" style="font-size:24px;color:green"></i>Verified</span>
           {% endif %}
         </div>
-      </div>
     {% endif %}
     {{ title_suffix }}
     {% if display_submitted %}
@@ -110,12 +113,18 @@
         {{ metadata }}
       </div>
     {% endif %}
+    {% if not page %}
+      <h2{{ title_attributes.addClass('node__title_small') }}>
+          <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+      </h2>
+    {% endif %}
   </header>
 {% endif  %}
   <div{{ content_attributes.addClass('node__content', 'clearfix') }}>
     {{ content }}
   </div>
 {% if node.field_non_business.value == '0' %}
+{% if page %}
   <div class="business-footer">
     <div class="left col-md-6">
       <div class="contact">
@@ -130,11 +139,12 @@
       <span class="email"><a href = "mailto: {{ node.field_email.value }}">Send Email</a></span>
       <span class="tel"><a href="tel:{{ node.field_telephone.value }}">Call {{ node.field_telephone.value }}</a></span>
       {% if node.field_verified_account.value == '1' %}
-      <span class="verified">Verified</span>
+      <span class="verified"><i class="fa fa-check-circle" style="font-size:24px;color:green"></i>Verified</span>
       {% endif %}
 
     </div>
   </div>
   <div class="business-copy">© {{ label }}. All Rights Reserved</div>
 {% endif  %}
+{% endif %}
 </article>
