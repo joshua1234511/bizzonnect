@@ -76,12 +76,6 @@
   <header>
     {{ title_prefix }}
     {% if page %}
-    <style type="text/css">
-      #header {
-        display: none;
-        z-index: -9;
-      }
-    </style>
     {% if node.field_design.value == 'dark' %}
       <div class="business-header dark">
     {% else %}
@@ -99,20 +93,21 @@
           {% if node.field_verified_account.value == '1' %}
           <span class="verified"><i class="fa fa-check-circle" style="font-size:24px;color:green"></i>Verified</span>
           {% endif %}
+          {{ title_suffix }}
+          {% if display_submitted %}
+            <div class="node__meta">
+              {{ author_picture }}
+              {% block submitted %}
+                <span{{ author_attributes }}>
+                  {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
+                </span>
+              {% endblock %}
+              {{ metadata }}
+            </div>
+          {% endif %}
         </div>
     {% endif %}
-    {{ title_suffix }}
-    {% if display_submitted %}
-      <div class="node__meta">
-        {{ author_picture }}
-        {% block submitted %}
-          <span{{ author_attributes }}>
-            {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
-          </span>
-        {% endblock %}
-        {{ metadata }}
-      </div>
-    {% endif %}
+
     {% if not page %}
       <h2{{ title_attributes.addClass('node__title_small') }}>
           <a href="{{ url }}" rel="bookmark">{{ label }}</a>

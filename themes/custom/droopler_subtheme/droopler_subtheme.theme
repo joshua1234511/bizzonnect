@@ -1,5 +1,5 @@
 <?php
-
+use Drupal\node\NodeInterface;
 /**
  * @file
  * Functions to support theming in the droopler_subtheme theme.
@@ -17,6 +17,15 @@
  */
 function droopler_subtheme_preprocess_page(&$variables) {
   $variables['container'] ='container-fluid';
+  $node = $variables['node'];
+  $variables['not_business_page'] = TRUE;
+  if ($node instanceof NodeInterface) {
+    $type = $node->getType();
+
+    if ($type == 'content_page') {
+      $variables['not_business_page'] = FALSE;
+    }
+  }
 }
 
 /**
