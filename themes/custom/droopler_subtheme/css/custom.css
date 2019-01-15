@@ -181,5 +181,5 @@ nav.business-menu {
 }
 
 .business-logo img {
-  max-height: auto;
+  max-height: inherit;
 }
