@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 
 function get_related_data($uid){
-  $uid = 1;
+  //$uid = 1;
   global $base_url;
   $nids = \Drupal::entityQuery('node')
   ->condition('status', 1)
