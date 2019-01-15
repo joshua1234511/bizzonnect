@@ -175,3 +175,7 @@ div.business-header.light {
   display: block;
   color: #fff;
 }
+
+nav.business-menu {
+  display: inline-block;
+}

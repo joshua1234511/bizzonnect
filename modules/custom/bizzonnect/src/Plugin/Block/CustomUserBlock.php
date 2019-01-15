@@ -63,19 +63,34 @@ class CustomUserBlock extends BlockBase implements \Drupal\Core\Block\BlockPlugi
         $query->condition('n.uid',\Drupal::currentUser()->id());
         $query->condition('n.status', '1');
         $businessCount = $query->countQuery()->execute()->fetchField();
+
+        $query = $db->select('node_field_data', 'n');
+        $query->fields('n',array('nid'));
+        $query->condition('n.type', "d_product");
+        $query->condition('n.uid',\Drupal::currentUser()->id());
+        $query->condition('n.status', '1');
+        $productCount = $query->countQuery()->execute()->fetchField();
+
         $o = '<div class="submissions-count">
-          <div class="col-sm-6">
+          <div class="col-sm-4">
             <h3>Business Listing</h3>
             <span>'.$businessCount.'/1</span>';
         if($businessCount < 1):
-          $o .= '<a href="/node/add/content_page">Add Listing</a>';
+          $o .= '<a href="/node/add/content_page">Add Business Listing</a>';
         endif;
         $o .= '</div>
-          <div class="col-sm-6">
+          <div class="col-sm-4">
+            <h3>Product Listing</h3>
+            <span>'.$productCount.'/3</span>';
+        if($productCount < 5):
+          $o .= '<a href="/node/add/d_product">Add Product</a>';
+        endif;
+        $o .= '</div>
+          <div class="col-sm-4">
             <h3>Blog Listing</h3>
             <span>'.$blogCount.'/3</span>';
         if($blogCount < 3):
-          $o .= '<a href="/node/add/blog_post">Add Listing</a>';
+          $o .= '<a href="/node/add/blog_post">Add Blog Post</a>';
         endif;
         $o .= '</div>
         </div>';

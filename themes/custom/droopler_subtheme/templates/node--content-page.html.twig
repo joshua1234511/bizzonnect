@@ -73,18 +73,39 @@
 %}
 <article{{ attributes.addClass(classes) }}>
 {% if node.field_non_business.value == '0' %}
-  <header>
+    {% if page %}
+    {% if node.field_design.value == 'dark'%}
+      <header id="header" class="header business-header dark" role="banner" aria-label="Site header">
+    {% else %}
+      <header id="header" class="header business-header light" role="banner" aria-label="Site header">
+    {% endif %}
+    {% else %}
+    <header >
+    {% endif %}
     {{ title_prefix }}
     {% if page %}
-    {% if node.field_design.value == 'dark' %}
-      <div class="business-header dark">
-    {% else %}
-      <div class="business-header light">
-    {% endif %}
-        <div class="left col-md-6">
-            <img src="{{ file_url(node.field_teaser_image.entity.uri.value) }}" alt="{{  node_title }}" class="img-responsive" >
+     <nav class="navbar" id="navbar-main">
+     <div class="container no-padding-sm">
+
+        <div class="navbar-brand">
+                       <a href="{{ url }}" title="Business" rel="home" class="float-left site-logo logo-png">
+            <img src="{{ file_url(node.field_teaser_image.entity.uri.value) }}" alt="{{  node_title }}" alt="Home" class="img-responsive">
+          </a>
         </div>
-        <div class="right col-md-6">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <nav class="navbar navbar-expand-lg">
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="menu-region">
+              <div class="region region-primary-menu">
+                {{ relatedData }}
+              </div>
+            </div>
+          </div>
+        </nav>
+        <div class="row">
+          <div class="col-xs-12">
           <h2{{ title_attributes.addClass('node__title') }}>
               <a href="{{ url }}" rel="bookmark">{{ label }}</a>
           </h2>
@@ -106,6 +127,8 @@
             </div>
           {% endif %}
         </div>
+      </div>
+    </nav>
     {% endif %}
 
     {% if not page %}
