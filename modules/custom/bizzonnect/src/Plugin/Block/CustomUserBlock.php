@@ -81,7 +81,7 @@ class CustomUserBlock extends BlockBase implements \Drupal\Core\Block\BlockPlugi
         $o .= '</div>
           <div class="col-sm-4">
             <h3>Product Listing</h3>
-            <span>'.$productCount.'/3</span>';
+            <span>'.$productCount.'/5</span>';
         if($productCount < 5):
           $o .= '<a href="/node/add/d_product">Add Product</a>';
         endif;
