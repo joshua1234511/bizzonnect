@@ -183,3 +183,11 @@ nav.business-menu {
 .business-logo img {
   max-height: inherit;
 }
+
+.header.business-header.dark {
+  background: black;
+}
+
+.node--type-content-page .node__title > a > span {
+  padding: 0 10px;
+}
