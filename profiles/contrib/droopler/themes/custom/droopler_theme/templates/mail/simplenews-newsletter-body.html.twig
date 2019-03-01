@@ -43,11 +43,9 @@
 
 {% if not opt_out_hidden %}
     {% if format == 'html' %}
-        <p class="newsletter-footer"><a
-                    href="[simplenews-subscriber:unsubscribe-url]">{{ unsubscribe_text }}</a>
-        </p>
-    {% else %}
+        <p class="newsletter-footer" align="center">
         -- {{ unsubscribe_text }} : [simplenews-subscriber:unsubscribe-url]
+        </p>
     {% endif %}
 {% endif %}
 
