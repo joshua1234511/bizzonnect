@@ -58,6 +58,8 @@ class AutoPostFacebookController extends ControllerBase {
     $helper = $fb->getRedirectLoginHelper();
 
     $permissions = ['publish_actions', 'manage_pages', 'publish_pages'];
+    // Latest as per facebook.
+    $permissions = ['manage_pages', 'publish_pages'];
 
     $loginUrl = Url::fromRoute('autopost_facebook.callback');
     $loginUrl->setAbsolute(TRUE);
