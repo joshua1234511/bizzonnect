@@ -41,6 +41,27 @@ class MessagesForm extends ConfigFormBase {
       '#markup' => '<p>' . $this->t('This page allows you to configure settings which determines how e-mail messages are created.') . '</p>',
     ];
 
+    $form['sender_options'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Sender options'),
+    ];
+
+    $form['sender_options']['sender_email'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Sender e-mail'),
+      '#default_value' => $config->get('sender_email'),
+      '#description' => $this->t('The e-mail address that all e-mails will be from.'),
+    ];
+
+    $form['sender_options']['sender_name'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Sender name'),
+      '#default_value' => $config->get('sender_name'),
+      '#description' => $this->t('The name that all e-mails will be from. If left blank will use a default of: @name',
+        ['@name' => \Drupal::config('system.site')->get('name')]),
+    ];
+
+
     $form['format'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Message format'),
@@ -103,8 +124,24 @@ class MessagesForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    $sender_email = $form_state->getValue(['sender_options', 'sender_email']);
+
+    if (!empty($sender_email) && !\Drupal::service('email.validator')->isValid($sender_email)) {
+      // Setting up 'name' manually because the element is an array.
+      $form_state->setErrorByName('sender_options][sender_email', $this->t('The provided from e-mail address is not valid.'));
+    }
+
+    parent::validateForm($form, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = $this->config('swiftmailer.message');
+    $config->set('sender_email', $form_state->getValue(['sender_options', 'sender_email']));
+    $config->set('sender_name', $form_state->getValue(['sender_options', 'sender_name']));
     $config->set('format', $form_state->getValue(['format', 'type']));
     $config->set('respect_format', $form_state->getValue(['format', 'respect']));
     $config->set('convert_mode', $form_state->getValue(['convert', 'mode']));

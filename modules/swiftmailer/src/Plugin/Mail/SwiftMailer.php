@@ -240,6 +240,19 @@ class SwiftMailer implements MailInterface, ContainerFactoryPluginInterface {
       Conversion::swiftmailer_remove_header($m, 'To');
       Conversion::swiftmailer_remove_header($m, 'Subject');
 
+      // Parse 'Sender options'.
+      $sender_name = $this->config['message']['sender_name'];
+      if (empty($sender_name)) {
+        $sender_name = \Drupal::config('system.site')->get('name');
+      }
+
+      $sender_email = $this->config['message']['sender_email'];
+      if (empty($sender_email)) {
+        $sender_email = \Drupal::config('system.site')->get('mail');
+      }
+
+      $message['from'] = "{$sender_name} <{$sender_email}>";
+
       // Parse 'from', 'to' and 'reply-to' mailboxes.
       $from = Conversion::swiftmailer_parse_mailboxes($message['from']);
       $to = Conversion::swiftmailer_parse_mailboxes($message['to']);
