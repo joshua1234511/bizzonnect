@@ -1,5 +1,5 @@
 <?php
-
+use Drupal\node\NodeInterface;
 /**
  * @file
  * Functions to support theming in the droopler_subtheme theme.
@@ -17,6 +17,19 @@
  */
 function droopler_subtheme_preprocess_page(&$variables) {
   $variables['container'] ='container-fluid';
+  $variables['not_business_page'] = TRUE;
+  if(isset($variables['node'])){
+    $node = $variables['node'];
+    if ($node instanceof NodeInterface) {
+      $type = $node->getType();
+      if ($type == 'content_page') {
+        $is_business = $node->get('field_non_business')->getValue()[0]['value'];
+        if(!$is_business){
+          $variables['not_business_page'] = FALSE;
+        }
+      }
+    }
+  }
 }
 
 /**
@@ -36,9 +49,22 @@ function droopler_subtheme_preprocess_page(&$variables) {
 /**
  * Implements hook_preprocess_HOOK() for node.html.twig.
  */
-// function droopler_subtheme_preprocess_node(&$variables) {
-//
-// }
+function droopler_subtheme_preprocess_node(&$variables) {
+  if(isset($variables['node'])){
+    $node = $variables['node'];
+    if ($node instanceof NodeInterface) {
+      $type = $node->getType();
+      if ($type == 'content_page') {
+        $is_business = $node->get('field_non_business')->getValue()[0]['value'];
+        //if(!$is_business){
+          $uid = $node->getOwnerId();
+          $relatedData = get_related_data($uid);
+          $variables['relatedData'] = drupal_render($relatedData);
+        //}
+      }
+    }
+  }
+}
 
 /**
  * Implements hook_preprocess_HOOK() for block.html.twig.
