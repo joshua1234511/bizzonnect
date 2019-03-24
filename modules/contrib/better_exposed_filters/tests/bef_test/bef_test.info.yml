@@ -10,14 +10,8 @@ dependencies:
   - options
   - user
 
-# Information added by Drupal.org packaging script on 2018-10-26
-# version: '8.x-3.0-alpha5'
-# core: '8.x'
-# project: 'better_exposed_filters'
-# datestamp: 1540513087
-
-# Information added by Drupal.org packaging script on 2018-12-20
-version: '8.x-1.4'
+# Information added by Drupal.org packaging script on 2019-02-18
+version: '8.x-3.0-alpha6'
 core: '8.x'
-project: 'droopler'
-datestamp: 1545295418
+project: 'better_exposed_filters'
+datestamp: 1550449395

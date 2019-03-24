@@ -8,14 +8,8 @@ package: Paragraphs
 dependencies:
   - paragraphs
 
-# Information added by Drupal.org packaging script on 2018-10-31
-# version: '8.x-1.5'
-# core: '8.x'
-# project: 'paragraphs'
-# datestamp: 1541001786
-
-# Information added by Drupal.org packaging script on 2018-12-20
-version: '8.x-1.4'
+# Information added by Drupal.org packaging script on 2019-03-20
+version: '8.x-1.7'
 core: '8.x'
-project: 'droopler'
-datestamp: 1545295418
+project: 'paragraphs'
+datestamp: 1553087592

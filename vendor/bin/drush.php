@@ -1,12 +1,14 @@
-#!/usr/bin/env php
-<?php
+#!/usr/bin/env sh
 
-/**
- * @file
- * drush is a PHP script implementing a command line shell for Drupal.
- *
- * @requires PHP CLI 5.4.5, or newer.
- */
+dir=$(cd "${0%[/\\]*}" > /dev/null; cd "../drush/drush" && pwd)
 
-require __DIR__ . '/includes/preflight.inc';
-exit(drush_main());
+if [ -d /proc/cygdrive ]; then
+    case $(which php) in
+        $(readlink -n /proc/cygdrive)/*)
+            # We are in Cygwin using Windows php, so the path must be translated
+            dir=$(cygpath -m "$dir");
+            ;;
+    esac
+fi
+
+"${dir}/drush.php" "$@"
