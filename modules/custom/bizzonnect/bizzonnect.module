@@ -102,5 +102,18 @@ function bizzonnect_form_alter(&$form, FormStateInterface $form_state, $form_id)
         }
       }
     }
+    else if (isset($_GET['business'])) {
+      $nid = $_GET['business'];
+      $node = Node::load($nid);
+      if ($node) {
+        $uid = $node->get('uid')->getValue();
+        $uid = (int)$uid[0]['target_id'];
+        if ($node->bundle() == 'content_page'&& $uid == 0) {
+          $title = $node->getTitle();
+          $form['subject']['widget'][0]['value']['#value'] = 'Claim Business - '.$title;
+          $form['subject']['widget'][0]['value']['#attributes']['readonly'] = 'readonly';
+        }
+      }
+    }
   }
 }

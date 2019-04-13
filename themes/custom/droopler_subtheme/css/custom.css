@@ -191,3 +191,17 @@ nav.business-menu {
 .node--type-content-page .node__title > a > span {
   padding: 0 10px;
 }
+
+.node--type-content-page .region.region-featured-bottom-first > div {
+  margin: auto;
+  text-align: center;
+  padding-top: 10px;
+}
+
+.node--type-content-page .region.region-featured-bottom-first > div > h2 {
+  font-size: 1rem;
+}
+
+.business-footer > div {
+  text-align: center;
+}

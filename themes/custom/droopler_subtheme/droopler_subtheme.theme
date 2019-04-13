@@ -1,5 +1,7 @@
 <?php
 use Drupal\node\NodeInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
 /**
  * @file
  * Functions to support theming in the droopler_subtheme theme.
@@ -58,8 +60,12 @@ function droopler_subtheme_preprocess_node(&$variables) {
         $is_business = $node->get('field_non_business')->getValue()[0]['value'];
         //if(!$is_business){
           $uid = $node->getOwnerId();
-          $relatedData = get_related_data($uid);
-          $variables['relatedData'] = drupal_render($relatedData);
+          if($uid == 0){
+            $link = Link::fromTextAndUrl('Claim Business', Url::fromUserInput('/contact?business='.$node->nid->value));
+            $variables['claimBusiness'] = $link->toRenderable();
+          }
+          //$relatedData = get_related_data($uid);
+          //$variables['relatedData'] = drupal_render($relatedData);
         //}
       }
     }

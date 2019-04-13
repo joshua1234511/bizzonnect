@@ -92,18 +92,6 @@
             <img src="{{ file_url(node.field_teaser_image.entity.uri.value) }}" alt="{{  node_title }}" alt="Home" class="img-responsive">
           </a>
         </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <nav class="navbar navbar-expand-lg">
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <div class="menu-region">
-              <div class="region region-primary-menu">
-                {{ relatedData }}
-              </div>
-            </div>
-          </div>
-        </nav>
         <div class="row business-details-header">
           <div class="col-xs-12">
           <h2{{ title_attributes.addClass('node__title') }}>
@@ -113,6 +101,9 @@
           <span class="tel"><a href="tel:{{ node.field_telephone.value }}">Call {{ node.field_telephone.value }}</a></span>
           {% if node.field_verified_account.value == '1' %}
           <span class="verified"><i class="fa fa-check-circle" style="font-size:24px;color:green"></i>Verified</span>
+          {% endif %}
+          {% if claimBusiness %}
+          <span class="claim-business">{{ claimBusiness }}</span>
           {% endif %}
           {{ title_suffix }}
           {% if display_submitted %}
@@ -159,10 +150,12 @@
       {% if node.field_verified_account.value == '1' %}
       <span class="verified"><i class="fa fa-check-circle" style="font-size:24px;color:green"></i>Verified</span>
       {% endif %}
+      {% if claimBusiness %}
+      <span class="claim-business">{{ claimBusiness }}</span>
+      {% endif %}
 
     </div>
   </div>
-  <div class="business-copy">© {{ label }}. All Rights Reserved</div>
 {% endif  %}
 {% endif %}
 </article>
