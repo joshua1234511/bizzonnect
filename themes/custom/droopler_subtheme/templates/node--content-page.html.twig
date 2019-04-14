@@ -97,7 +97,9 @@
           <h2{{ title_attributes.addClass('node__title') }}>
               <a href="{{ url }}" rel="bookmark">{{ label }}</a>
           </h2>
+          {% if node.field_email.value %}
           <span class="email"><a href = "mailto: {{ node.field_email.value }}">Send Email</a></span>
+          {% endif %}
           <span class="tel"><a href="tel:{{ node.field_telephone.value }}">Call {{ node.field_telephone.value }}</a></span>
           {% if node.field_verified_account.value == '1' %}
           <span class="verified"><i class="fa fa-check-circle" style="font-size:24px;color:green"></i>Verified</span>
@@ -145,7 +147,9 @@
     </div>
     </div>
     <div class="right col-md-6">
+      {% if node.field_email.value %}
       <span class="email"><a href = "mailto: {{ node.field_email.value }}">Send Email</a></span>
+      {% endif %}
       <span class="tel"><a href="tel:{{ node.field_telephone.value }}">Call {{ node.field_telephone.value }}</a></span>
       {% if node.field_verified_account.value == '1' %}
       <span class="verified"><i class="fa fa-check-circle" style="font-size:24px;color:green"></i>Verified</span>
